@@ -13,6 +13,9 @@ CFLAGS=-Wall
 # CFLAGS : Extra flags to give to the C compiler.
 # -Wall : This enables all the warnings about constructions.
 
+# rm
+# -r : remove directories and their contents recursively
+# -f : ignore nonexistent files and arguments and never prompt
 clean:
 	rm -rf *.o
 	rm -rf fcfs
@@ -20,6 +23,12 @@ clean:
 	rm -rf rr
 	rm -rf priority
 	rm -rf priority_rr
+
+# make clean
+
+# Reference variables using either ${} or $()
+# -c Compile or assemble the source files, but do not link.  output is in the form of an object file for each source file.
+# -o file Place the primary output in file file. 
 
 rr: driver.o list.o CPU.o schedule_rr.o
 	$(CC) $(CFLAGS) -o rr driver.o schedule_rr.o list.o CPU.o
