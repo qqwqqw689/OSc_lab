@@ -8,8 +8,8 @@ This project involves implementing several different process scheduling algorith
 
 ## Environment
 
-- OS: Ubuntu 18.04 (Linux kernel version: 5.3.5)
-- Compiler: GCC 7.4.0
+- OS: Ubuntu 22.04
+- Compiler: GCC 11.3.0
 
 ## Basic Ideas
 
@@ -31,7 +31,7 @@ make fcfs
 
 which builds the fcfs executable file.
 
-./fcfs schedule.text
+./fcfs example_tasks.txt
 
 which execute the scheduler.
 
