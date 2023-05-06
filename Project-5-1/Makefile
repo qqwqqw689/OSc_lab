@@ -5,6 +5,8 @@ CC=gcc
 CFLAGS=-Wall
 PTHREADS=-lpthread
 
+# 
+
 all: client.o threadpool.o
 	$(CC) $(CFLAGS) -o example client.o threadpool.o $(PTHREADS)
 
