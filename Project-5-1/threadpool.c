@@ -61,6 +61,8 @@ void *worker(void *param) {
     task workToDo;
     while(TRUE) {
         sem_wait(&taskCnt); // block until there is an available task, also as a cancellation point
+        // int sem_wait(sem_t *sem);
+        // lock a semaphore
         workToDo = dequeue();
         execute(workToDo.function, workToDo.data);
     }
@@ -84,6 +86,8 @@ int pool_submit(void (*somefunction)(void *p), void *p) {
     err = enqueue(newTask);
     if(!err) {   // success
         sem_post(&taskCnt);     // signal the semaphore
+        // int sem_post(sem_t *sem);
+        // unlock a semaphore
     }
     return err;
 }
@@ -91,9 +95,18 @@ int pool_submit(void (*somefunction)(void *p), void *p) {
 // initialize the thread pool
 void pool_init(void) {
     pthread_mutex_init(&lock, NULL);
+    // int pthread_mutex_init(pthread_mutex_t *restrict mutex, const pthread_mutexattr_t *restrict attr);
     sem_init(&taskCnt, 0, 0);
+    // int sem_init(sem_t *sem, int pshared, unsigned int value);
+    // initialize an unnamed semaphore
+    // If pshared has the value 0, then the semaphore is shared between
+    // the threads of a process, and should be located at some address
+    // that is visible to all threads
+    // The value argument specifies the initial value for the semaphore
     for(size_t i = 0; i != NUMBER_OF_THREADS; ++i) {
         pthread_create(&bees[i], NULL, worker, NULL);
+        // int pthread_create(pthread_t *restrict thread, const pthread_attr_t *restrict attr,
+        // void *(*start_routine)(void *),void *restrict arg);
     }
 }
 
@@ -101,6 +114,8 @@ void pool_init(void) {
 void pool_shutdown(void) {
     for(size_t i = 0; i != NUMBER_OF_THREADS; ++i) {
         pthread_cancel(bees[i]);
+        // int pthread_cancel(pthread_t thread);
+        // send a cancellation request to a thread.Just a request.
         pthread_join(bees[i], NULL);
     }
     sem_destroy(&taskCnt);
