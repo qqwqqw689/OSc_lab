@@ -40,6 +40,9 @@ void init_args(char *args[]) {
  */
 void init_command(char *command) {
     strcpy(command, "");
+    // char * strcpy ( char * destination, const char * source );
+    // Copies the C string pointed by source into the array pointed by destination,
+    // including the terminating null character (and stopping at that point).
 }
 
 /*
@@ -73,7 +76,9 @@ size_t parse_input(char *args[], char *original_command) {
     char command[MAX_LINE + 1];
     strcpy(command, original_command);  // make a copy since `strtok` will modify it
     char *token = strtok(command, DELIMITERS);
-    // strtok: Split string into tokens
+    // char * strtok ( char * str, const char * delimiters );
+    // A sequence of calls to this function split str into tokens, which are sequences of contiguous
+    // characters separated by any of the characters that are part of delimiters.
     while(token != NULL) {
         args[num] = malloc(strlen(token) + 1);
         strcpy(args[num], token);
@@ -94,8 +99,12 @@ size_t parse_input(char *args[], char *original_command) {
  */
 int get_input(char *command) {
     char input_buffer[MAX_LINE + 1];
+    // char * fgets ( char * str, int num, FILE * stream );
+    // Reads characters from stream and stores them as a C string into str until (num-1) characters have been
+    // read or either a newline or the end-of-file is reached, whichever happens first.
     if(fgets(input_buffer, MAX_LINE + 1, stdin) == NULL) {
         fprintf(stderr, "Failed to read input!\n");
+        // int fprintf(FILE *restrict stream, const char *restrict format, ...);
         return 0;
     }
     if(strncmp(input_buffer, "!!", 2) == 0) {
