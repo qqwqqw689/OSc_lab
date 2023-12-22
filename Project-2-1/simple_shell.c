@@ -228,6 +228,7 @@ int redirect_io(unsigned io_flag, char *input_file, char *output_file, int *inpu
         // O_RDWR or O_WRONLY, its length shall be truncated to 0, and the mode and owner shall be unchanged.
         // Upon successful completion, the function shall open the file and return 
         // a non-negative integer representing the lowest numbered unused file descriptor
+        // On error, -1 is returned
         // mode : rws: read/write/execute 
         // r = 100b = 4
         // w = 010b = 2
