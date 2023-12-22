@@ -108,7 +108,9 @@ int get_input(char *command) {
         return 0;
     }
     if(strncmp(input_buffer, "!!", 2) == 0) {
-        // 	the contents of both strings are equal
+        // int strncmp ( const char * str1, const char * str2, size_t num );
+        // Compares up to num characters of the C string str1 to those of the C string str2.
+        // 0: the contents of both strings are equal
         if(strlen(command) == 0) {  // no history yet
             fprintf(stderr, "No history available yet!\n");
             // stderr: Standard error stream
@@ -167,6 +169,8 @@ unsigned check_redirection(char **args, size_t *size, char **input_file, char **
         if(remove_cnt >= 4) {
             break;
         }
+        // int strcmp ( const char * str1, const char * str2 );
+        // Compares the C string str1 to the C string str2.
         if(strcmp("<", args[i]) == 0) {     // input
             to_remove[remove_cnt++] = i;
             if(i == (*size) - 1) {
@@ -191,7 +195,7 @@ unsigned check_redirection(char **args, size_t *size, char **input_file, char **
     for(int i = remove_cnt - 1; i >= 0; --i) {
         size_t pos = to_remove[i];  // the index of arg to remove
         // printf("%lu %s\n", pos, args[pos]);
-        while(pos != *size) {
+        while(pos != *size) { // must be *size.
             args[pos] = args[pos + 1];
             ++pos;
         }
