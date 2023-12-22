@@ -13,8 +13,8 @@
     newline ............ \n
     horizontal tab.... \t
     vertical tab ....... \v
-    formfeed .......... \f
-    return ...... \r
+    form feed(new page) .......... \f
+    Carriage return ...... \r
 */
 
 /*
